@@ -1,60 +1,18 @@
-var http = require('http');
-var express = require('express');
-var bodyParser = require('body-parser');
-var logger = require('morgan');
-var mongodb = require('./config/mongo.db');
-var gameroutes_v1 = require('./api/game.routes.v1');
-var characterroutes_v1 = require('./api/characters.route.v1');
-var config = require('./config/env/env');
+const express = require('express');
+const path = require('path');
+const http = require('http');
+const bodyParser = require('body-parser');
 
-var app = express();
+const app = express();
 
-module.exports = {};
+app.use(express.static(path.join(__dirname, 'dist')));
 
-app.use(bodyParser.urlencoded({
-    'extended': 'true'
-}));
-app.use(bodyParser.json());
-app.use(bodyParser.json({
-    type: 'application/vnd.api+json'
-}));
-
-app.set('port', (process.env.PORT | config.env.webPort));
-app.set('env', (process.env.ENV | 'development'));
-
-app.use(logger('dev'));
-
-// CORS headers
-app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', process.env.ALLOW_ORIGIN || 'http://localhost:4200');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
 
-app.use('/api/v1', gameroutes_v1);
-app.use('/api/v1', characterroutes_v1);
+const port = process.env.PORT || '3000';
+app.set('port', port);
 
-app.use(function (err, req, res, next) {
-    // console.dir(err);
-    var error = {
-        message: err.message,
-        code: err.code,
-        name: err.name,
-        status: err.status
-    };
-    res.status(401).send(error);
-});
-
-app.use('*', function (req, res) {
-    res.status(400);
-    res.json({
-        'error': 'Deze URL is niet beschikbaar.'
-    });
-});
-
-app.listen(config.env.webPort, function () {
-    console.log('De server luistert op port ' + app.get('port'));
-    console.log('Zie bijvoorbeeld http://localhost:3000/api/v1/games');
-});
+const server = http.createServer(app);
+server.listen(port);

@@ -1,0 +1,59 @@
+<div class="row marginAddSection">
+  <div class="col-xs-12">
+
+    <h3>Find your game easier:</h3>
+
+    <div>
+      <div class="col-md-4 filterSpacingP">
+        <p class="pull-right">Game Title: </p>
+      </div>
+      <div class="col-md-8 filterSpacing">
+        <input class="pull-left form-control" type="text" [(ngModel)]="filteredStatus" ng-model="GameTitleFilter" placeholder="Search for game..."  >
+      </div>
+    </div>
+
+    <div>
+      <div class="col-md-4 filterSpacingP">
+        <p class="pull-right">Game Genre: </p>
+      </div>
+      <div class="col-md-8 filterSpacing">
+        <input class="pull-left form-control" type="text" [(ngModel)]="filteredGenre" placeholder="Search for genre..."  >
+      </div>
+    </div>
+
+    <div>
+      <div class="col-md-4 filterSpacingP">
+        <p class="pull-right">Game Publisher: </p>
+      </div>
+      <div class="col-md-8 filterSpacing">
+        <input class="pull-left form-control" type="text" [(ngModel)]="filteredPublisher" placeholder="Search for publisher..."  >
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" style="margin-top: 30px;">
+  <div class="col-xs-8">
+    <h5>Game not found? Add the game!</h5>
+  </div>
+  <div class="col-xs-3">
+    <button class="btn btn-success itemStyle" (click)="onNewGame()"><span class="glyphicon glyphicon-plus iconButton"></span>New Game</button>
+  </div>
+  <!--<div class="col-md-12">Which Filter is now in use?</div>-->
+  <!--<div class="col-md-12">-->
+    <!--<div class="col-md-5">Game Title:</div>-->
+    <!--<div class="col-md-5">Overwatch</div-->
+
+  <!--</div>-->
+
+</div>
+
+<hr>
+<div class="row">
+  <div class="col-xs-12">
+    <app-game-item
+      *ngFor="let gameEL of games | filter:filteredGenre: 'genre'| filter:filteredStatus:'title' | filter:filteredPublisher: 'publisher'; let i = index"
+      [game]="gameEL"
+      [index]="i"></app-game-item>
+  </div>
+</div>

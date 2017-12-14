@@ -1,0 +1,118 @@
+  <div class="row col-md-offset-2" style="margin-bottom: 15px;">
+    <button class="btn btn-primary itemStyle" routerLink="/games"><span class="glyphicon glyphicon-chevron-left"></span> Back to list</button>
+    <button class="btn btn-warning itemStyle" routerLink="/games/{{id}}/edit">Edit Game Information<span class="glyphicon glyphicon-edit" style="margin-left: 5px;"></span></button>
+  </div>
+
+  <div class="col-md-8 col-md-offset-2 contentStyle">
+
+
+    <div class="row">
+      <div class="col-xs-12">
+        <img
+          [src]="game.imagePath"
+          alt="{{ game.title }}"
+          class="img-responsive imageSpacing"
+          style="max-height: 300px;">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h1>{{ game.title }}</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <strong>Description: </strong><br>
+        {{ game.description }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <strong>Genre(s): </strong><br>
+        {{ game.genre }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <strong>Game Developer: </strong>
+        {{ game.developer }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <strong>Game Publisher: </strong>
+        {{ game.publisher }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <strong>Release year: </strong>
+        {{ game.releaseYear }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-5">
+        <strong>Game Platforms:</strong>
+        <ul class="list-group">
+          <li
+            class="list-group-item"
+            *ngFor="let platform of game.platforms">
+            {{ platform.name }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+<div class="row col-md-8 col-md-offset-2 contentStyle" style="margin-top: 30px;">
+  <div class="col-md-12">
+  <div>
+    <h1>Characters</h1>
+    <h5>Select a character for more information</h5>
+    <button routerLink="/games/editChar/{{game._id}}/" class="btn btn-primary">Add Character</button>
+  </div>
+
+  <div class="col-md-12 text-center" style="margin-top: 20px;">
+    <div>
+      <app-character-item
+        *ngFor="let characterEL of game.characters"
+        [character]="characterEL"
+        [gameId]="game._id"
+        [index]="i"
+        (characterSelected)="onGameSelected(characterEL)">
+      </app-character-item>
+    </div>
+
+  </div>
+  <div>
+    <app-character-detail
+      *ngIf="character"
+      [character]="character"
+      [gameId]="game._id"
+    ></app-character-detail>
+  </div>
+
+</div>
+
+
+  <hr>
+  <h1>Related Games</h1>
+  <div class="row">
+    <div class="col-md-12">
+      <ul>
+        <ng-container *ngFor="let gameEl of relGame">
+          <li *appIf="gameEl._id != game._id"  id="li"><app-rel-game-item
+            [gameRel]="gameEl">
+          </app-rel-game-item></li>
+        </ng-container>
+      </ul>
+
+    </div>
+  </div>
+
+  </div>

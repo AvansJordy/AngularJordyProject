@@ -1,0 +1,65 @@
+<div class="itemStyle" style="margin-top: 30px;margin-bottom: 30px;">
+<div class="row rowspacing">
+  <div class="col-xs-12 imageSpacing">
+    <img
+      [src]="game.imagePath"
+      alt="{{ game.title }}"
+      class="img-responsive"
+      style="max-height: 300px;">
+  </div>
+</div>
+<div class="row itemSpacing">
+  <div class="col-xs-12 bottomSpacing">
+    <div
+      class="btn-group buttonStyle"
+      appDropdown>
+      <button
+        type="button"
+        class="btn btn-primary dropdown-toggle">
+        Manage Game <span class="glyphicon glyphicon-collapse-down"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a style="cursor: pointer;" (click)="onEditGame()">Edit Game Information</a></li>
+        <li><a style="cursor: pointer;" (click)="onDeleteGame()">Delete Game</a></li>
+      </ul>
+    </div>
+
+    <button class="btn btn-info buttonStyle" routerLink="/detailgames/{{id}}">More details <span class="glyphicon glyphicon-new-window"></span></button>
+    <div class="row">
+    <div class="col-xs-12">
+      <h1>{{ game.title }}</h1>
+    </div>
+  </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <strong>Description: </strong><br>
+        {{ game.description }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <strong>Genre:</strong>
+        {{ game.genre }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <strong>Release year:</strong>
+        {{ game.releaseYear }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <strong>Game Publisher:</strong>
+        {{ game.publisher }}
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+</div>

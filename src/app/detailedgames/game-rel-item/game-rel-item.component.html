@@ -1,0 +1,18 @@
+<div class="row">
+  <a
+    style="cursor: pointer;"
+    routerLink="/games/{{gameRel._id}}"
+    class="list-group-item ">
+    <div class="pull-left">
+      <h4 class="list-group-item-heading">{{ gameRel.title }}</h4>
+
+    </div>
+    <span >
+        <img
+          [src]="gameRel.imagePath"
+          alt="{{ gameRel.title }}"
+          class="img-responsive"
+          style="max-height: 50px;">
+      </span>
+  </a>
+</div>
