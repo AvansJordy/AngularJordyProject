@@ -11,7 +11,7 @@ export class GameService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
   private serverUrl = environment.serverUrl + '/games/';
-  private serverNeoUrl = environment.serverUrl +'/gamesrel/';
+  private serverNeoUrl = environment.serverUrlRel;
 
   private games: Game[];
   private characters: Gamecharacter[];
@@ -44,7 +44,7 @@ export class GameService {
         return response.json();
       })
       .catch(error => {
-        console.log(error)
+        console.log(error);
         return error;
       });
   }
@@ -64,7 +64,7 @@ export class GameService {
   }
 
   getCharacters() {
-    return this.http.get(environment.serverUrlCharacter, {headers: this.headers})
+    return this.http.get(environment.serverUrlChar, {headers: this.headers})
       .toPromise()
       .then(response => {
         this.characters = response.json() as Gamecharacter[];
@@ -79,21 +79,21 @@ export class GameService {
   getCharacter(index: string) {
     if (index == null)
       return null;
-    return this.http.get(environment.serverUrlCharacter + index, {headers: this.headers})
+    return this.http.get(environment.serverUrlChar + index, {headers: this.headers})
       .toPromise()
       .then(response => {
         return response.json();
       })
       .catch(error => {
-        console.log(error)
+        console.log(error);
         return error;
       });
   }
 
   addCharacter(id: string, char: Gamecharacter, game: Game) {
-    console.log('addChar')
+    console.log('addChar');
 
-    return this.http.post(environment.serverUrlCharacter, char, {headers: this.headers})
+    return this.http.post(environment.serverUrlChar, char, {headers: this.headers})
       .toPromise()
       .then(response => {
 
@@ -123,7 +123,7 @@ export class GameService {
 
   updateCharacter(id: string, newChar: Gamecharacter) {
     console.log('update');
-    return this.http.put(environment.serverUrlCharacter + id, newChar, {headers: this.headers})
+    return this.http.put(environment.serverUrlChar + id, newChar, {headers: this.headers})
       .toPromise()
       .then(response => {
         this.gameChanged.next(this.games);
@@ -139,7 +139,7 @@ export class GameService {
   }
 
   deleteCharacter(id: string) {
-    return this.http.delete(environment.serverUrlCharacter + id, {headers: this.headers})
+    return this.http.delete(environment.serverUrlChar + id, {headers: this.headers})
       .toPromise()
       .then(response => {
         this.gameChanged.next(this.games.slice());
